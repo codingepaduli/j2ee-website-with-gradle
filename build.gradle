@@ -34,7 +34,14 @@ repositories {
 }
 
 gretty {
-	servletContainer 'tomcat10'
+	servletContainer 'jetty11'
+    httpPort 8082
+    contextPath '/web'
+
+    // logging configuration
+    logDir "${buildDir}/log" // pay attention to double quote
+    logFileName 'webApp.log'
+    loggingLevel 'TRACE'     // (loggingLevel 'ALL', 'DEBUG', 'ERROR', 'INFO', 'OFF', 'TRACE', 'WARN')
 }
 
 dependencies {
