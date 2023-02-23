@@ -23,7 +23,7 @@ public class CalcolatriceServlet extends HttpServlet {
 	 */
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+        logger.debug("Calcolatrice");
 		request.getRequestDispatcher("calcolatrice.jsp").forward(request, response);
 	}
 
@@ -34,8 +34,9 @@ public class CalcolatriceServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		String num1S = (String) request.getParameter("num1");
 		String num2S = (String) request.getParameter("num2");
+        String formato = (String) request.getParameter("formato");
 		
-		logger.debug("Somma di " + num1S + " e " + num2S);
+        logger.debug("Vista " + formato + " - " + num1S + " + " + num2S);
 		
 		double num1 = Double.parseDouble(num1S);
 		double num2 = Double.parseDouble(num2S);
@@ -44,7 +45,16 @@ public class CalcolatriceServlet extends HttpServlet {
 		request.setAttribute("num1", num1);
 		request.setAttribute("num2", num2);
 		request.setAttribute("somma", somma);
-		request.getRequestDispatcher("risultato.jsp").forward(request, response);
+        
+        if (formato != null && formato.equals("XML")) {
+            request.getRequestDispatcher("risultatoXML.jsp").forward(request, response);
+        }
+        if (formato != null && formato.equals("JSON")) {
+            request.getRequestDispatcher("risultatoJSON.jsp").forward(request, response);
+        }
+        if (formato == null || formato.equals("HTML")) {
+            request.getRequestDispatcher("risultato.jsp").forward(request, response);
+        }
 	}
 
 }
