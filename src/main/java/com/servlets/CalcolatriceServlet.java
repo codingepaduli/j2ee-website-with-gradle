@@ -6,14 +6,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import org.apache.log4j.Logger;
 
 /**
  * Servlet implementation class CalcolatriceServlet
  */
 @WebServlet("/calcolatrice")
 public class CalcolatriceServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-    
+
+	static Logger logger = Logger.getLogger(CalcolatriceServlet.class);    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,9 +31,11 @@ public class CalcolatriceServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
     @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		String num1S = (String) request.getParameter("num1");
 		String num2S = (String) request.getParameter("num2");
+		
+		logger.debug("Somma di " + num1S + " e " + num2S);
 		
 		double num1 = Double.parseDouble(num1S);
 		double num2 = Double.parseDouble(num2S);
